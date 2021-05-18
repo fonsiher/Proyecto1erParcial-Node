@@ -1,10 +1,12 @@
 const fs = require("fs");
 const neatCsv = require("neat-csv");
-const paises = require("../datos/paises").paises;
-
+const paises = require("../data/paises").paises;
+const colors = require('colors');
 let datosAnio = [];
 let informacion = [];
 let listaSubs = [];
+let estadisticasPaises = [];
+
 
 const cargarDatos = (path) => {
     return new Promise((resolve, reject) => {
@@ -70,13 +72,9 @@ const ordenarPaises = () => {
                 topcountrys.push(element[1]);
             }
         });
-
     }
-
     return topcountrys
 }
-
-
 
 
 
@@ -126,6 +124,7 @@ const vectorPais = (codPais) => {
 
 const obtenerEstadisticas = async(codPais, anio, path) => {
     await cargarDatos(path);
+    //cargarDatos(path);
     //validarNum(anio);
     vecAnio(anio);
     limpiar();
@@ -137,7 +136,7 @@ const obtenerEstadisticas = async(codPais, anio, path) => {
         //await comprobar(codPais);
     let mediaPais = vectorPais(codPais).dato
     let indexpais = vectorPais(codPais).indexpais
-    indexpais = indexpais / 3
+    indexpais = indexpais / 3;
     let paisesAntes = []
     let paisesDespues = []
     if (indexpais < 5) {
@@ -156,9 +155,9 @@ const obtenerEstadisticas = async(codPais, anio, path) => {
 
     r2 = ""
     if (mediaPais[0] > mediaworld) {
-        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es mayor a la media mundial `
+        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es mayor a la media mundial `.green
     } else {
-        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es menor a la media mundial `
+        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es menor a la media mundial `.red
     }
     return {
         media_mundial: r1,
@@ -169,7 +168,32 @@ const obtenerEstadisticas = async(codPais, anio, path) => {
     };
 };
 
-module.exports = {
-    //crearArchivo,
-    obtenerEstadisticas
+
+
+//=========  GUARDAR EN ARCHIVO JSON ================
+
+let estats = [];
+let crearArchivo = (datos, out) => {
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(
+                "resultados")) {
+            fs.mkdirSync(
+                "resultados");
+        }
+        let valores = {
+            datos
+        }
+        estats.push(valores)
+        let data = JSON.stringify(estats)
+        fs.writeFile(`./data/${out}.json`, data, (err) => {
+            if (err)
+                reject(err);
+            else
+                resolve('=====================================================');
+        });
+    });
 };
+
+
+
+module.exports = { obtenerEstadisticas, crearArchivo };

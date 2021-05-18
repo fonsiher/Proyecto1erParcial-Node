@@ -16,7 +16,7 @@ const year = {
     desc: 'Especificar el año para el cual se requiere las estadísticas',
 }
 
-const out = {
+const salida = {
     demand: true,
     alias: 'o',
     desc: 'Establece el nombre del archivo JSON donde se almacenarán los resultados',
@@ -25,8 +25,7 @@ const out = {
 const argv = require('yargs')
     // Establece la descripcion del comando que se tendrá que ejecutar a nivel de linea de consola
     .command('publicar', 'Publicará las estadísticas en una página web básica', { file, pais, year })
-    //.command('publicar', 'Publicará las estadísticas en una página web básica', { file })
-    .command('guardar', 'Almacenará los resultados de las estadísticas en un archivo json', { file, pais, year, out })
+    .command('guardar', 'Almacenará los resultados de las estadísticas en un archivo json', { file, pais, year, salida })
     .help()
     .argv;
 
