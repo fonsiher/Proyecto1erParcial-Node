@@ -60,11 +60,13 @@ const mediaMundial = () => {
 
 const ordenarPaises = () => {
     let top = [];
-    let topcountrys = []
+    let topcountrys = [];
+    let listaSubs = [];
     datosAnio.forEach((element) => {
         listaSubs.push(Number(element[0]));
     });
-    top = listaSubs.sort((a, b) => b - a);
+    //top = listaSubs.sort((a, b) => b - a);
+    top = listaSubs.sort((a, b) => (a > b ? -1 : 1))
     //top = top.slice(0, 5);
     for (var i = 0; i < top.length; i++) {
         datosAnio.forEach((element) => {
@@ -73,7 +75,9 @@ const ordenarPaises = () => {
             }
         });
     }
-    return topcountrys
+    return{
+        topcountrys,top
+    } 
 }
 
 
@@ -107,7 +111,7 @@ const comprobarAnio = (anio) => {
 const vectorPais = (codPais) => {
     dato = [];
     let indexpais = 0
-    let listap = ordenarPaises();
+    let listap = ordenarPaises().topcountrys;
     datosAnio.forEach((element) => {
         if (element[2] == codPais) {
             indexpais = listap.findIndex(pais => pais == element[1]);
@@ -129,42 +133,53 @@ const obtenerEstadisticas = async(codPais, anio, path) => {
     vecAnio(anio);
     limpiar();
     let mediaworld = Math.round(mediaMundial());
-    let five = ordenarPaises();
+    let five = ordenarPaises().topcountrys;
+    let fiveval = ordenarPaises().top
     five2 = five.slice(0, 5);
-    r1 = `La media mundial en el año ${anio} es ${mediaworld} `
+    fiveval2 = fiveval.slice(0, 5);
+    r1 = `La media mundial de suscriptores en el año ${anio} es ${mediaworld} `
         //await comprobarAnio(anio);
         //await comprobar(codPais);
     let mediaPais = vectorPais(codPais).dato
     let indexpais = vectorPais(codPais).indexpais
-    indexpais = indexpais / 3;
+    //indexpais = indexpais / 3;
     let paisesAntes = []
     let paisesDespues = []
+    let valoresAntes = []
+    let valoresDespues = []
     if (indexpais < 5) {
         paisesAntes = five.slice(0, indexpais)
+        valoresAntes = fiveval.slice(0, indexpais)
     } else {
         paisesAntes = five.slice(indexpais - 5, indexpais)
+        valoresAntes = fiveval.slice(indexpais - 5, indexpais)
     }
 
     if ((indexpais + 5) > five.length) {
         paisesDespues = five.slice(indexpais + 1, indexpais - 1)
+        valoresDespues = fiveval.slice(indexpais + 1, indexpais - 1)
 
     } else {
         paisesDespues = five.slice(indexpais + 1, indexpais + 6)
+        valoresDespues = fiveval.slice(indexpais + 1, indexpais + 6)
     }
 
 
     r2 = ""
     if (mediaPais[0] > mediaworld) {
-        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es mayor a la media mundial `.green
+        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es mayor a la media mundial `
     } else {
-        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es menor a la media mundial `.red
+        r2 = `Los usuarios en ${mediaPais[1]} con ${mediaPais[0]} suscriptores es menor a la media mundial `
     }
     return {
         media_mundial: r1,
         comparacion: r2,
         topCinco: five2,
+        valoresTop: fiveval2,
         paisesPorEncima: paisesAntes,
-        paisesPorDebajo: paisesDespues
+        valoresEncima: valoresAntes,
+        paisesPorDebajo: paisesDespues,
+        valoresDebajo : valoresDespues
     };
 };
 
@@ -189,7 +204,7 @@ let crearArchivo = (datos, out) => {
             if (err)
                 reject(err);
             else
-                resolve('=====================================================');
+                resolve(`El archivo ${out}.json se ha guardado satisfactoriamente`);
         });
     });
 };
