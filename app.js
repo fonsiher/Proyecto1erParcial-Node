@@ -21,14 +21,27 @@ const opciones = () => {
     let comando = argv._[0];
     switch (comando) {
         case "publicar":
-            console.log("=====================================================".green);
+            console.log("======================================================================".red);
             console.log(`Estadísticas de suscripciones a telefonía celular en ${pais} en el año ${year} `.yellow);
-            console.log("=====================================================".green);
+            console.log("======================================================================".red);
             console.log(`${info.media_mundial}`.cyan);
-            console.log(`${info.comparacion}`.bgGreen);
-            console.log(`El top cinco de países con mas subscripciones en ${year} son: ${info.topCinco}`.blue);
-            console.log(`Los países por encima del valor de suscripciones de ${pais} son : ${info.paisesPorEncima}`.bgBlue);
-            console.log(`Los países por debajo del valor de suscripciones de ${pais} son : ${info.paisesPorDebajo}`.bgMagenta);
+            console.log(`${info.comparacion}`.green);
+            console.log("\n");
+            console.log(`========El top cinco de países con mas subscripciones en ${year}==========`.bgRed);
+            for (i in info.topCinco) {
+                console.log(`País:  ${info.topCinco[i]} - Suscriptores: ${info.valoresTop[i]} `.blue);
+            }
+            console.log("\n");
+            console.log(`========Los países por encima del valor de suscripciones de ${pais}==========`.bgRed);
+            for (i in info.paisesPorEncima) {
+                console.log(`País:  ${info.paisesPorEncima[i]} - Suscriptores: ${info.valoresEncima[i]} `.yellow);
+            }
+            console.log("\n");
+            console.log(`========Los países por debajo del valor de suscripciones de ${pais}==========`.bgRed);
+            for (i in info.paisesPorDebajo) {
+                console.log(`País:  ${info.paisesPorDebajo[i]} - Suscriptores: ${info.valoresDebajo[i]} `.cyan);
+            }
+            console.log("\n");
             const http = require('http');
             const hostname = '127.0.0.1';
             const port = 3000;
@@ -73,12 +86,17 @@ th {
    background: #eee;
 }
 
-h1,h2{
+h2{
     font: oblique bold 150% cursive;
+}
+h1{
+  font-family: "Segoe UI";
 }
 
 </style>
+
 </head>
+
 <body>
     <h1 align ="center">Estadísticas de suscripciones a telefonía móvil en ${pais}  en el año ${year}</h1>
     <h2>${info.media_mundial}</h2>
@@ -202,7 +220,7 @@ h1,h2{
   </tr>
 
 </table>
-    <table class="">
+    <table id="tablePrint">
 
   <tr>
 
@@ -256,15 +274,15 @@ h1,h2{
 
     <td>${info.valoresEncima[4]}</td>
 
-
   </tr>
 
 </table>
+
         
-    </div>
-
-
+  </div>
 </body>
+
+
 
 </html>`);
             });
@@ -275,14 +293,26 @@ h1,h2{
 
             break;
         case "guardar":
-            console.log("=====================================================".green);
+            console.log("==================================================================".red);
             console.log(`Estadísticas de suscripciones a telefonía celular en ${pais} en el año ${year} `.yellow);
-            console.log("=====================================================".green);
+            console.log("==================================================================".red);
             console.log(`${info.media_mundial}`.cyan);
-            console.log(`${info.comparacion}`);
-            console.log(`El top cinco de países con mas subscripciones en ${year} son: ${info.topCinco}`.blue);
-            console.log(`Los países por encima del valor de suscripciones de ${pais} son : ${info.paisesPorEncima}`.bgBlue);
-            console.log(`Los países por debajo del valor de suscripciones de ${pais} son : ${info.paisesPorDebajo}`.bgMagenta);
+            console.log(`${info.comparacion}`.green);
+            console.log(`========El top cinco de países con mas subscripciones en ${year}==========`.bgRed);
+            for (i in info.topCinco) {
+                console.log(`País:  ${info.topCinco[i]} - Suscriptores: ${info.valoresTop[i]} `.blue);
+            }
+            console.log("\n");
+            console.log(`========Los países por encima del valor de suscripciones de ${pais}==========`.bgRed);
+            var vp = info.paisesPorEncima
+            for (i in info.paisesPorEncima) {
+                console.log(`País:  ${info.paisesPorEncima[i]} - Suscriptores: ${info.valoresEncima[i]} `.yellow);
+            }
+            console.log("\n");
+            console.log(`========Los países por debajo del valor de suscripciones de ${pais}==========`.bgRed);
+            for (i in info.paisesPorDebajo) {
+                console.log(`País:  ${info.paisesPorDebajo[i]} - Suscriptores: ${info.valoresDebajo[i]} `.cyan);
+            }
             console.log("\n");
             crearArchivo(info, nombre_archivo)
                 .then((mensaje) => console.log(colors.bgGreen(mensaje).black))
@@ -299,4 +329,3 @@ run()
     .catch((err) => {
         console.log(err);
     });
-

@@ -4,8 +4,6 @@ const paises = require("../data/paises").paises;
 const colors = require('colors');
 let datosAnio = [];
 let informacion = [];
-let listaSubs = [];
-let estadisticasPaises = [];
 
 
 const cargarDatos = (path) => {
@@ -39,7 +37,7 @@ const vecAnio = async(anio) => {
 const limpiar = () => {
     vec = [];
     datosAnio.forEach((element) => {
-        if (paises.includes(element[2])) {
+        if (paises.includes(element[2]) && ((element[0]) != "0") && ((element[0] != ""))) {
             vec.push(element);
         }
     });
@@ -67,7 +65,7 @@ const ordenarPaises = () => {
     });
     //top = listaSubs.sort((a, b) => b - a);
     top = listaSubs.sort((a, b) => (a > b ? -1 : 1))
-    //top = top.slice(0, 5);
+        //top = top.slice(0, 5);
     for (var i = 0; i < top.length; i++) {
         datosAnio.forEach((element) => {
             if (top[i] == element[0]) {
@@ -75,9 +73,10 @@ const ordenarPaises = () => {
             }
         });
     }
-    return{
-        topcountrys,top
-    } 
+    return {
+        topcountrys,
+        top
+    }
 }
 
 
@@ -142,7 +141,7 @@ const obtenerEstadisticas = async(codPais, anio, path) => {
         //await comprobar(codPais);
     let mediaPais = vectorPais(codPais).dato
     let indexpais = vectorPais(codPais).indexpais
-    //indexpais = indexpais / 3;
+        //indexpais = indexpais / 3;
     let paisesAntes = []
     let paisesDespues = []
     let valoresAntes = []
@@ -179,7 +178,7 @@ const obtenerEstadisticas = async(codPais, anio, path) => {
         paisesPorEncima: paisesAntes,
         valoresEncima: valoresAntes,
         paisesPorDebajo: paisesDespues,
-        valoresDebajo : valoresDespues
+        valoresDebajo: valoresDespues
     };
 };
 
