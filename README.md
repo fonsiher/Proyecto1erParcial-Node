@@ -11,6 +11,7 @@ Para la realización y prueba del código mostrado en el repositorio se utilizó
   <li>Visual Studio Code</li>
   <li>Node JS  v14.16.0.</li>
   <li>NPM (Node Package Manager)</li>
+  <li> <a href="https://datos.bancomundial.org/indicador/IT.CEL.SETS">Dataset de Suscripciones a telefonía celular móvil </a></li>
 </ul>
 Si desea editar, modificar y ejecutar el código del repositorio necesitará disponer de las herramientas listadas. <br/>
 
@@ -45,43 +46,73 @@ Si ya lo tienes instaldo pasa al siguiente punto.</p>
 <h4>Instalación de Node Package Manager NPM</h4>
 <ol>
   <li>Para instalar npm hay que escribir en el terminal del Sistema Operativo o del propio Visual estudio:  «npm install npm@latest -g» y pulsar Intro</li>
-  <li>Una vez instalado mediante el comando <<npm init>> dentro de nuestro proyecto aparecerá un archivo muy importante llamando package.json, mismo que muestra nombre, versión, descripción, autor, el archivo main, y finalmente muestra las dependencias del proyecto, es decir todos los paquetes o módulos que se hayan instalando para el proyecto en cuestión. </li>
-  <li>-	Posteriormente a la persona que quiera trabajar con el código traído desde un repositorio o de manera remota se descargará el código sin las librerías y dependencias del proyecto, pero las instará de forma sencilla mediante <<npm install>> que instalará todas las dependencias registradas en el archivo package.json</li>
-
+  <li>Teniendo instalado NPM se coloca en el terminal: <<npm init>>, aquí dentro de nuestro proyecto aparecerá un archivo muy importante llamando package.json, mismo que muestra nombre, versión, descripción, autor, el archivo main, y finalmente muestra las dependencias del proyecto, es decir todos los paquetes o módulos que se hayan instalando para el proyecto en cuestión. </li>
+  </ol>
 
 ## Despliegue 📦
+<ol>
+  <li>Teniendo instalado NPM  a la persona que quiera trabajar con el código traído desde un repositorio o de manera remota se descargará el código sin las librerías y dependencias del proyecto, pero las instará de forma sencilla mediante el comando de terminal <<npm install>> que instalará todas las dependencias registradas en el archivo package.json</li>
+ </ol>
+  <h5> El programa utiliza la librería npm yargs, que permite que el programa pueda ejecutarse en la terminal al estilo de llamados por línea de comandos de bash </h5>
+  <h5>El programa dispone de dos comandos: </h5
+  <ol>
+    <li> <b>Publicar:</b> Este comando publicará las estadísticas en una página web básica. Se requieren de tres parámetros:
+       <ul>
+         <li>--file -f: Permite establecer el path del archivo CSV que contiene los datos a analizar</li>
+         <li>--country -c: Permite determinar el país a analizar a través de su código ISO 3166 ALPHA-3</li>
+         <li>--year -y: Permite especificar el año para el cual se requiere las estadísticas. Por defecto, 2018.</li>
+      </ul> 
+    </li>
+    <li> <b> Guardar: </b> Este comando almacenará los resultados de las estadísticas en un archivo json. Recibe los mismos parámetros que el comando anterior, y se adiciona la siguiente opción:
+        <ul>
+              <li>--out -o: Establece el nombre del archivo donde se almacenará los resultados</li>
+      </ul>  
+  </li>
+</ol>
 
-_Agrega notas adicionales sobre como hacer deploy_
-
+  <h3> El comando para la ejecución del programa se vería de la siguiente manera: </h3> 
+  
+  <ul>
+    <li> Para publicar: Tomando ejemplo datos de Ecuador (ECU) en el año 2016 </li>
+  </ul>
+  
+```
+node app.js publicar -f "tu_path\.csv" -c "ECU" -y 2016 
+```
+   <ul>
+    <li> Para Guardar: Tomando ejemplo datos de Ecuador (USA) en el año 2019 </li>
+  </ul> 
+  
+```
+node app.js guardar -f "tu_Path\datos.csv" -c "USA" -y 2019 -o "Datos USA"
+```
+  
 ## Construido con 🛠️
 
-_Menciona las herramientas que utilizaste para crear tu proyecto_
+  <h5> Librerías NPM </h5>
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
+* [yargs](https://www.npmjs.com/package/yargs) - Ayuda a crear herramientas de línea de comandos interactivas, analizando argumentos y generando una elegante interfaz de usuario.
+* [colors](https://www.npmjs.com/package/colors) - Dar color y estilo la impresiones por consola node.js
+* [neat-csv](https://www.npmjs.com/package/neat-csv) - Analizador CSV rápido
+  <h5> Extras </h5>
+* [CSS](https://www.w3schools.com/css/) - Es un lenguaje de diseño gráfico para definir y crear la presentación de un documento estructurado escrito en un lenguaje de marcado.
 
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
-
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
 
 ## Versionado 📌
+Se realizó un versionamiente mediante los tags de git, en total se ha lanzado solo una versión con una modificación. 
+<ol>
+  <li> Versión 1.0.0: Contiene La impresión básica por consola y guardado en JSON </li>
+  <li>Versión 1.0.1: Contiene la impresión mejorada por consola, y añadido la impresión de los resultados en un servidor web local </li>
+</ol>  
+  
+  
 
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
+## Autor ✒️
 
-## Autores ✒️
-
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
-
-* **Andrés Villanueva** - *Trabajo Inicial* - [villanuevand](https://github.com/villanuevand)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
+* **Edwin Hernández** - *Estudiante Ingeniería en Ciencias de la Computación* - [fonsiher](https://github.com/fonsiher)
 
 También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional</a>.
