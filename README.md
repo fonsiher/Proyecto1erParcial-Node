@@ -38,35 +38,16 @@ Si ya lo tienes instaldo pasa al siguiente punto.</p>
 <ol>
 <li>-	Se descarga la versión LTS de la página oficial que reconocerá automáticamente el S.O en el que se esté trabajando:  <a href="https://nodejs.org/es/"> Descargar Node </a>
 <li>Se aceptan los términos de la licencia y se procede a la instalación.</li>
-<li>Una vez instalado para commprobar la correcta instalación se puede crear un pequeño programa en Visual Studio Code con extensión .js y se lo ejecuta en la terminal con el formato: <br>node archivo.js<br> </li>
- 
+<li>Una vez instalado para commprobar la correcta instalación se puede crear un pequeño programa en Visual Studio Code con extensión .js y se lo ejecuta en la terminal con el formato: <b>node archivo.js<b> </li>
+  </ol> 
   
 <br/>
-<h4>Instalación de Wildfly</h4>
+<h4>Instalación de Node Package Manager NPM</h4>
 <ol>
-  <li>La instalación de Wildfly es solo una cuestión de descomprimir la distribución en su máquina local. Wildfly puede ser descargado desde su sitio web oficial</li>
-  <li>Una vez descomprimido, vaya al directorio bin de instalación y ejecute standalone.sh para sistemas Linux o standalone.bat para sistemas Windows para iniciar su instancia de WildFly en las configuraciones predeterminadas.</li>
-  <li>Luego su nueva instancia de WildFly esperando para darle la bienvenida en: http: // localhost: 8080 /</li>
+  <li>Para instalar npm hay que escribir en el terminal del Sistema Operativo o del propio Visual estudio:  «npm install npm@latest -g» y pulsar Intro</li>
+  <li>Una vez instalado mediante el comando <<npm init>> dentro de nuestro proyecto aparecerá un archivo muy importante llamando package.json, mismo que muestra nombre, versión, descripción, autor, el archivo main, y finalmente muestra las dependencias del proyecto, es decir todos los paquetes o módulos que se hayan instalando para el proyecto en cuestión. </li>
+  <li>-	Posteriormente a la persona que quiera trabajar con el código traído desde un repositorio o de manera remota se descargará el código sin las librerías y dependencias del proyecto, pero las instará de forma sencilla mediante <<npm install>> que instalará todas las dependencias registradas en el archivo package.json</li>
 
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
 
 ## Despliegue 📦
 
