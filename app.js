@@ -8,6 +8,7 @@ let file = argv.file;
 let pais = argv.pais;
 let year = argv.year.toString();
 let nombre_archivo = argv.salida;
+let x = 0
 
 let info;
 
@@ -97,191 +98,163 @@ h1{
 
 </head>
 
+
 <body>
-    <h1 align ="center">Estadísticas de suscripciones a telefonía móvil en ${pais}  en el año ${year}</h1>
-    <h2>${info.media_mundial}</h2>
-    <h2>${info.comparacion}</h2>
+<h1 align ="center">Estadísticas de suscripciones a telefonía móvil en ${pais}  en el año ${year}</h1>
+<ul>
+<li><h2>${info.media_mundial}</h2></li>
+<li><h2>${info.comparacion}</h2></li>
+</ul>
 
-    <div align="center">
-    <table class="">
 
+<br>
+<div align="center"> 
+<table class="">
+
+<tr>
+
+  <th  colspan = "2" align="center">Los 5 países con mas suscripciones en el año ${year}</th>
+
+</tr>
   <tr>
 
-    <th  colspan = "2" align="center">Los 5 países con mas suscripciones en el año ${year}</th>
+  <th align="center">País</th>
+  <th align="center">Número de Suscriptores</th>
 
-  </tr>
-    <tr>
+</tr>
 
-    <th align="center">País</th>
-    <th align="center">Número de Suscriptores</th>
+<tr>
 
-  </tr>
+  <td>${info.topCinco[0]}</td>
 
+  <td>${info.valoresTop[0]}</td>
+
+
+</tr>
+
+<tr>
+
+  <td>${info.topCinco[1]}</td>
+
+  <td>${info.valoresTop[1]}</td>
+
+
+</tr>
+
+<tr>
+
+  <td>${info.topCinco[2]}</td>
+
+  <td>${info.valoresTop[2]}</td>
+
+
+</tr>
   <tr>
 
-    <td>${info.topCinco[0]}</td>
+  <td>${info.topCinco[3]}</td>
 
-    <td>${info.valoresTop[0]}</td>
+  <td>${info.valoresTop[3]}</td>
 
 
-  </tr>
-
+</tr>
   <tr>
 
-    <td>${info.topCinco[1]}</td>
+  <td>${info.topCinco[4]}</td>
 
-    <td>${info.valoresTop[1]}</td>
-
-
-  </tr>
-
-  <tr>
-
-    <td>${info.topCinco[2]}</td>
-
-    <td>${info.valoresTop[2]}</td>
+  <td>${info.valoresTop[4]}</td>
 
 
-  </tr>
-    <tr>
-
-    <td>${info.topCinco[3]}</td>
-
-    <td>${info.valoresTop[3]}</td>
-
-
-  </tr>
-    <tr>
-
-    <td>${info.topCinco[4]}</td>
-
-    <td>${info.valoresTop[4]}</td>
-
-
-  </tr>
+</tr>
 
 </table>    
 
-    <table class="">
+</div>
+<br>
+<div id = "myDynamicTable" align="center"></div>
+<br>
+<div id = "myDynamicTable2" align="center"></div>
 
-  <tr>
-
-    <th  colspan = "3" align="center">Los 5 países por debajo del valor de suscripciones de ${pais}</th>
-
-  </tr>
-      <tr>
-
-    <th align="center">País</th>
-    <th align="center">Número de Suscriptores</th>
-
-  </tr>
-
-  <tr>
-
-    <td>${info.paisesPorDebajo[0]}</td>
-
-    <td>${info.valoresDebajo[0]}</td>
-
-
-  </tr>
-
-  <tr>
-
-    <td>${info.paisesPorDebajo[1]}</td>
-
-    <td>${info.valoresDebajo[1]}</td>
-
-
-  </tr>
-
-  <tr>
-
-    <td>${info.paisesPorDebajo[2]}</td>
-
-    <td>${info.valoresDebajo[2]}</td>
-
-
-  </tr>
-    <tr>
-
-    <td>${info.paisesPorDebajo[3]}</td>
-
-    <td>${info.valoresDebajo[3]}</td>
-
-
-  </tr>
-    <tr>
-
-    <td>${info.paisesPorDebajo[4]}</td>
-
-    <td>${info.valoresDebajo[4]}</td>
-
-
-  </tr>
-
-</table>
-    <table id="tablePrint">
-
-  <tr>
-
-    <th  colspan = "3" align="center">Los 5 países Por encima del valor de suspcripciones de ${pais}</th>
-
-  </tr>
-      <tr>
-
-    <th align="center">País</th>
-    <th align="center">Número de Suscriptores</th>
-
-  </tr>
-
-  <tr>
-
-    <td>${info.paisesPorEncima[0]}</td>
-
-    <td>${info.valoresEncima[0]}</td>
-
-
-  </tr>
-
-  <tr>
-
-    <td>${info.paisesPorEncima[1]}</td>
-
-    <td>${info.valoresEncima[1]}</td>
-
-
-  </tr>
-
-  <tr>
-
-    <td>${info.paisesPorEncima[2]}</td>
-
-    <td>${info.valoresEncima[2]}</td>
-
-
-  </tr>
-    <tr>
-
-    <td>${info.paisesPorEncima[3]}</td>
-
-    <td>${info.valoresEncima[3]}</td>
-
-
-  </tr>
-    <tr>
-
-    <td>${info.paisesPorEncima[4]}</td>
-
-    <td>${info.valoresEncima[4]}</td>
-
-  </tr>
-
-</table>
-
-        
-  </div>
 </body>
+<script>
+function addTable() {
+    var myTableDiv = document.getElementById("myDynamicTable");
+  
+    var table = document.createElement('TABLE');
+    table.border = '1'; 
+    var tableBody = document.createElement('TBODY');
+    table.appendChild(tableBody);
+    var ppd = ${JSON.stringify(info.paisesPorDebajo)}
+    var vppd = ${JSON.stringify(info.valoresDebajo)}
+    var tre = document.createElement('TR');
+    var the = document.createElement('TH');
+    the.colSpan = "2";
+    thtit1 = document.createElement('TH');
+    thtit2 = document.createElement('TH');
+    the.appendChild(document.createTextNode("Los 5 países por debajo del valor de suscripciones de ${pais}"));
+    thtit1.appendChild(document.createTextNode("País"));
+    thtit2.appendChild(document.createTextNode("Número de Suscriptores"));
+    tre.appendChild(the);
+    var tre2 = document.createElement('TR');
+    tre2.appendChild(thtit1);
+    tre2.appendChild(thtit2);
+    tableBody.appendChild(tre); 
+    tableBody.appendChild(tre2); 
+    for (var i = 0; i < ppd.length; i++) {
+        var tr = document.createElement('TR');
+        tableBody.appendChild(tr); 
+        var td = document.createElement('TD');
+        var td2 = document.createElement('TD');
+        td.width = '75';
+        td.appendChild(document.createTextNode(ppd[i]));
+        td2.appendChild(document.createTextNode(vppd[i])); 
+        tr.appendChild(td);
+        tr.appendChild(td2);
+        
+      }
+    myTableDiv.appendChild(table);
+  }
 
+  function addTable2() {
+    var myTableDiv = document.getElementById("myDynamicTable2");
+  
+    var table = document.createElement('TABLE');
+    table.border = '1';
+  
+    var tableBody = document.createElement('TBODY');
+    table.appendChild(tableBody);
+    var ppe = ${JSON.stringify(info.paisesPorEncima)}
+    var vppe = ${JSON.stringify(info.valoresEncima)}
+    var tre = document.createElement('TR');
+    var the = document.createElement('TH');
+    the.colSpan = "2";
+    thtit1 = document.createElement('TH');
+    thtit2 = document.createElement('TH');
+    the.appendChild(document.createTextNode("Los 5 países Por encima del valor de suscripciones de ${pais}"));
+    thtit1.appendChild(document.createTextNode("País"));
+    thtit2.appendChild(document.createTextNode("Número de Suscriptores"));
+    tre.appendChild(the);
+    var tre2 = document.createElement('TR');
+    tre2.appendChild(thtit1);
+    tre2.appendChild(thtit2);
+    tableBody.appendChild(tre); 
+    tableBody.appendChild(tre2); 
+    for (var i = 0; i < ppe.length; i++) {
+      var tr = document.createElement('TR');
+      tableBody.appendChild(tr); 
+      var td = document.createElement('TD');
+      var td2 = document.createElement('TD');
+      td.width = '75';
+      td.appendChild(document.createTextNode(ppe[i]));
+      td2.appendChild(document.createTextNode(vppe[i])); 
+      tr.appendChild(td);
+      tr.appendChild(td2);
+      
+    }
+    myTableDiv.appendChild(table);
+  }
+  addTable();
+  addTable2();
+</script>
 
 
 </html>`);

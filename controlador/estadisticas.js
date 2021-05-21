@@ -18,6 +18,12 @@ const cargarDatos = (path) => {
     });
 };
 
+const validarNum = (numero) => {
+    if ((!Number(numero))) {
+        throw Error(`${numero}: El valor no es un valor nuimerico`);
+    }
+};
+
 const vecAnio = async(anio) => {
     let anios = Object.values(informacion[3]);
     anio = anios.indexOf(anio);
@@ -43,6 +49,7 @@ const limpiar = () => {
     });
     datosAnio = vec;
 };
+
 
 
 const mediaMundial = () => {
@@ -81,7 +88,7 @@ const ordenarPaises = () => {
 
 
 
-const comprobar = (codigoPais) => {
+const comprobarCodPais = (codigoPais) => {
     return new Promise((resolve, reject) => {
         datosAnio.forEach((element) => {
             if (element[2] == codigoPais) {
@@ -127,16 +134,17 @@ const vectorPais = (codPais) => {
 
 const obtenerEstadisticas = async(codPais, anio, path) => {
     await cargarDatos(path);
-    //cargarDatos(path);
-    //validarNum(anio);
+    validarNum(anio);
     vecAnio(anio);
     limpiar();
+    await comprobarAnio(anio);
+    await comprobarCodPais(codPais);
     let mediaworld = Math.round(mediaMundial());
     let five = ordenarPaises().topcountrys;
     let fiveval = ordenarPaises().top
     five2 = five.slice(0, 5);
     fiveval2 = fiveval.slice(0, 5);
-    r1 = `La media mundial de suscriptores en el año ${anio} es ${mediaworld} `
+    r1 = `La media mundial de suscriptores en el año ${anio} es: ${mediaworld} `
         //await comprobarAnio(anio);
         //await comprobar(codPais);
     let mediaPais = vectorPais(codPais).dato
